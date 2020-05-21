@@ -1,6 +1,8 @@
 package ru.knastnt.tryrestconfig;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-public interface DogRepository extends MyRepository<Dog, Long> {
+@RepositoryRestResource
+public interface DogRepository extends CrudRepository<Dog, Long> {
 }
