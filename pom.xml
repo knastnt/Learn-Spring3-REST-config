@@ -28,6 +28,11 @@
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 		<dependency>
+			<!--
+				Этот стартер включает в себя: spring-web и модуль spring-webmvc, который нам нужен для нашего
+				веб-приложения Spring, стартер Tomcat, чтобы мы могли запускать наше веб-приложение напрямую,
+				без явной установки какого-либо сервера.
+			-->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -60,6 +65,11 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
