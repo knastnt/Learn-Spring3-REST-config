@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Выброс исключений из любого уровня веб-уровня гарантирует,
  * что Spring отобразит соответствующий (@ResponseStatus) код состояния в ответе HTTP
  */
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class MyResourceNotFoundException extends RuntimeException {
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class MyBadRequestException extends RuntimeException {
 }
