@@ -55,7 +55,8 @@ public class FooController {
     @GetMapping(value = "/{id}")
     public FooDto findOne(@PathVariable Long id){
         Foo entity = fooService.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new MyResourceNotFoundException());
         return convertToDto(entity);
     }
 
@@ -87,6 +88,14 @@ public class FooController {
         foo.get().setName(resource.getName());
 
         fooService.save(foo.get());
+    }
+
+    /**
+     * Перехватывает исключения указанных классов только в пределах данного контроллера
+     */
+    @ExceptionHandler({MyResourceNotFoundException.class, MyBadRequestException.class})
+    public void handleException(Exception e) throws Exception {
+        throw e;
     }
 
 
