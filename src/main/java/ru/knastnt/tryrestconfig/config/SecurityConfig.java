@@ -2,11 +2,31 @@ package ru.knastnt.tryrestconfig.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import java.util.Arrays;
+
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        super.configure(auth);
+
+        auth.inMemoryAuthentication()
+                .withUser("kostya")
+                .password("{noop}12345")
+                .authorities("SCOPE_write", "SCOPE_read")
+                .and()
+                .withUser("vasya")
+                .password("{noop}1")
+                .authorities("SCOPE_read");
+
+    }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         /**
@@ -21,14 +41,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors() //Для разрешения обработки запросов с другого источника URL
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/user/info", "/api/foos/**")
-                .hasAuthority("SCOPE_read")
-                .antMatchers(HttpMethod.POST, "/api/foos")
-                .hasAuthority("SCOPE_write")
+                    .antMatchers(HttpMethod.GET, "/user/info", "/api/foos/**").hasAuthority("SCOPE_read")
+                    .antMatchers(HttpMethod.POST, "/api/foos").hasAuthority("SCOPE_write")
                 .anyRequest()
-                .authenticated()
+                    .authenticated()
                 .and()
-                .oauth2ResourceServer()
-                .jwt();
+                    .formLogin().permitAll()
+                .and()
+                    .logout().logoutSuccessUrl("/");
+//                .oauth2ResourceServer()
+//                .jwt();
     }
 }
