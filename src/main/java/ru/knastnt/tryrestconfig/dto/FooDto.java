@@ -1,5 +1,8 @@
 package ru.knastnt.tryrestconfig.dto;
 
+import lombok.Data;
+
+@Data
 public class FooDto {
     private long id;
     private String name;
@@ -7,5 +10,8 @@ public class FooDto {
     public FooDto(long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public FooDto() {
     }
 }

@@ -2,15 +2,19 @@ package ru.knastnt.tryrestconfig.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import ru.knastnt.tryrestconfig.dto.FooDto;
 import ru.knastnt.tryrestconfig.entities.Foo;
+import ru.knastnt.tryrestconfig.exceptions.MyBadRequestException;
+import ru.knastnt.tryrestconfig.exceptions.MyResourceNotFoundException;
 import ru.knastnt.tryrestconfig.services.IFooService;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @RestController является центральным артефактом всего веб-уровня API RESTful. Для этого поста контроллер
@@ -72,6 +76,18 @@ public class FooController {
         return fooDto;
     }
 
+
+    @PatchMapping(value = "/{id}")//, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@PathVariable( "id" ) Long id, @RequestBody FooDto resource) {
+        if (resource == null || id == null || !id.equals(resource.getId())) throw new MyBadRequestException();
+        Optional<Foo> foo = fooService.findById(id);
+        if(!foo.isPresent()) throw new MyResourceNotFoundException();
+
+        foo.get().setName(resource.getName());
+
+        fooService.save(foo.get());
+    }
 
 
 //
