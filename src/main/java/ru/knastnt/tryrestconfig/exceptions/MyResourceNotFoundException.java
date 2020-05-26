@@ -16,4 +16,23 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class MyResourceNotFoundException extends RuntimeException {
+    public MyResourceNotFoundException() {
+        super();
+    }
+
+    public MyResourceNotFoundException(String message) {
+        super(message);
+    }
+
+    public MyResourceNotFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public MyResourceNotFoundException(Throwable cause) {
+        super(cause);
+    }
+
+    public MyResourceNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 }

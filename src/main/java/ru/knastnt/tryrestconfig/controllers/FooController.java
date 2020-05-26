@@ -92,8 +92,11 @@ public class FooController {
 
     /**
      * Перехватывает исключения указанных классов только в пределах данного контроллера
+     *
+     * Если этот не перехватывает, то перехватит этот: src/main/java/ru/knastnt/tryrestconfig/exceptions/MyBadRequestException.java
+     * Но вместе они не работают. Если перехватывает этот, то тот-нет
      */
-    @ExceptionHandler({MyResourceNotFoundException.class, MyBadRequestException.class})
+    @ExceptionHandler({MyBadRequestException.class})
     public void handleException(Exception e) throws Exception {
         throw e;
     }
