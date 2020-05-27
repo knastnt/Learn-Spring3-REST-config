@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class, MyResourceNotFoundException.class, Exception.class })
+    @ExceptionHandler(value = { /*IllegalArgumentException.class, IllegalStateException.class, Exception.class, */MyResourceNotFoundException.class })
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
         String bodyOfResponce = "Что-то пошло не так";
         return handleExceptionInternal(ex, bodyOfResponce, new HttpHeaders(), HttpStatus.CONFLICT, request);
