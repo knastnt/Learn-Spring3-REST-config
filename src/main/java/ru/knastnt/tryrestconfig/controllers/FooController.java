@@ -55,8 +55,8 @@ public class FooController {
     @GetMapping(value = "/{id}")
     public FooDto findOne(@PathVariable Long id){
         Foo entity = fooService.findById(id)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-                .orElseThrow(() -> new MyResourceNotFoundException());
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Foo Not Found")); //подход с использованием ResponseStatusException
+//                .orElseThrow(() -> new MyResourceNotFoundException()); //подход с использованием @ExceptionHandler
         return convertToDto(entity);
     }
 
